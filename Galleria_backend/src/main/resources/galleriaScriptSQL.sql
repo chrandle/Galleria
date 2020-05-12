@@ -42,11 +42,10 @@ $$ language sql;
 
 create or replace function 
 create_user(
-	fn users.firstName %type,ln users.lastName %type,
-	ue users.email %type, un users.username %type, pw users."password" %type
+	 un users.username %type, pw users."password" %type, ue users.email %type
 ) returns bigint  as $$
-	insert into users (firstName ,lastName, email,username ,"password" )
-	values (fn,ln,un,ue,pw)
+	insert into users (username ,"password",email )
+	values (un, pw, ue)
 	returning userid
 $$ language sql;
 
@@ -64,9 +63,9 @@ $$ language sql;
 -----------------------------------------------------*/ 
 
 
-select create_user('Bobby', 'brown','beebee','bb@google.com', 'yuppers');
-select create_user('Billy', 'brown','tubular','radical@google.com', 'yuppers');
-select create_user('Ted', 'brown','radical','tubular@google.com', 'yuppers');
+select create_user('beebee','bbb','bb@google.com');
+select create_user('tubular','waves','radical@google.com');
+select create_user('radical','skate','tubular@google.com');
 
 
 

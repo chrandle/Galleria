@@ -30,6 +30,10 @@ public class User {
 	private String email;
 	
 //	Constructors
+	public User() {
+		super();
+	}
+	
 	public User(String username, String password, String email) {
 		super();
 		this.username = username;
@@ -37,6 +41,8 @@ public class User {
 		this.email = email;
 	}
 	
+
+
 //	Getters and Setters
 
 	public long getUserid() {

@@ -29,6 +29,9 @@ public class Image {
 	private String author = "N/A";
 
 //	Constructors
+	public Image() {
+		super();
+	}
 	public Image(long creatorid, String src, String author) {
 			super();
 			this.creatorid = creatorid;

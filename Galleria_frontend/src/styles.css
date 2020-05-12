@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+.item {
+    padding: 0;
+    width: 300px;
+    height: 300px;
+    background-color: crimson;
+    color: #fff;
+    font-size: 50px;
+    line-height: 300px;
+    text-align: center;
+  }
+
+  html{
+    background-color: #262E33;
+  }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

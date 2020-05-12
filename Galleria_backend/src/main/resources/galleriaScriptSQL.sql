@@ -7,9 +7,8 @@
 ************************************/
 DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;
---drop table if exists Requests;
---drop table if exists Accounts;
 --drop table if exists Users;
+--drop table if exists Images;
 
 
 create table users
@@ -18,7 +17,7 @@ create table users
 	userName varchar(180) unique not null,
 	email varchar (180) unique not null,
 	"password" varchar(180) not null,
-	constraint Users_PK primary key (UserID,userName, "password"),
+	constraint Users_PK primary key (UserID,userName, "password")
 );
 
 create table images(

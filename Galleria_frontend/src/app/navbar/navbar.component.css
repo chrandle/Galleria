@@ -1,43 +1,39 @@
-ul,li{
-  font-size: 20pt;
-  display: inline;
-  padding: inherit;
-}
 
-li>a{
-  text-decoration: none;
-  size: inherit;
-  display: inline;
-  color:#C5D0D6;
-  padding-top: inherit;
-  padding-bottom: inherit;
-  padding-left: 8pt;
-  padding-right: 8pt;
-}
-
-li>a:hover{
-  background-color:#262E33;
-  background-clip: border-box;
-  color: rgb(125, 188, 228);
-}
-a:visited{
-  color: #C5D0D6;
-}
-
-h1{
-  width: 20vw;
-  margin: 1rem;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-size: 32pt;
-  color: rgb(125, 188, 228);
+*{
+    font-size: 30pt;
+     color: #C5D0D6;
 }
 
 #navContainer{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    color: #262E33;
     background-color: #667C8A;
     position: relative;
     margin-left: -50vw;
     left: 50%;
-    padding: 10pt 0pt 10pt;
 }
+
+ul,li{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 10vh;
+  margin : 0%;
+  padding: 0pt 18pt 0pt 18pt;
+}
+
+li>a{
+  text-decoration: none;
+}
+
+li:hover{
+  background-color:#262E33;
+}
+
+h1{
+  margin: 10pt 10pt 10pt 10pt;
+
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 42pt;
+  font-weight: 700;
+}
+

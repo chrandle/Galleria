@@ -1,5 +1,4 @@
 
-
 *{
 	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 	font-size: 28pt;
@@ -15,7 +14,7 @@
 	display: flex;
 	flex-direction: column;
 
-  	color: rgb(150, 225, 250);
+  	 color: #C5D0D6;
 	padding: 2vw 12vw
 }
 
@@ -36,7 +35,7 @@ form button{
 	min-width: 100pt;
 	max-width: 25vw;
 	align-self: left;
-  	color: #37434A;
+  	 color: #C5D0D6;
 	background-color: #667C8A;
 }
 
@@ -49,5 +48,15 @@ form button:hover{
 	color: #667C8A;
 }
 
+.invalid-feedback * {
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	font-size: 12pt;
+	color: white;
+	padding: 6pt;
+	display: inline;
+	background-color: indianred;
+	border-style: none;
+	border-radius: 8pt;
+}
 
 

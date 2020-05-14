@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { first } from "rxjs/operators";
+import { UserService } from '../services/user.service';
+import { AlertService } from '../services/alert.service';
 
 
 @Component({
@@ -12,44 +14,45 @@ import { first } from "rxjs/operators";
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
-  submitted = true;
-  returnUrl: string;
+  submitted = false;
 
   constructor(
     private formbuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private uService: UserService,
+    private alertService: AlertService
     /*
         TODO:
           Authentication
           Alerts
      */
   ) {
-      //authentication call<?>
+
    }
 
   ngOnInit(): void {
     this.loginForm = this.formbuilder.group({
-      username: ['',Validators.required],
-      password: ['',Validators.required],
-      confirm: ['',Validators.required]
+      username: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8)]]
     });
-
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl']||'/';
   }
 
   get f() { return this.loginForm.controls; }
 
-  onSubmit(){
+  onSubmit() {
     this.submitted = true;
 
-    if (this.loginForm.invalid){
+    this.alertService.clear();
+
+    /*
+      TODO:, password validity
+    */
+    if (this.loginForm.invalid) {
       return;
     }
 
+
     this.loading = true;
-
-    
-  }
-
+  } 
 }

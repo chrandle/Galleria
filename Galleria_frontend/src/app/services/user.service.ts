@@ -13,7 +13,7 @@ export class UserService {
   public newUser(user: User) {
 
     return this.http.post(
-      'http://localhost:9090/register',
+      'http://localhost:9090/user/register',
       user,
       {responseType:'text' as 'json'}
       );
@@ -21,7 +21,7 @@ export class UserService {
 
   // GET all Users
   public getAllUsers() {
-    return this.http.get('http://localhost:9090/users');
+    return this.http.get('http://localhost:9090/user/all');
   }
 
   // GET a single User by ID;

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { first } from "rxjs/operators";
+import { first } from 'rxjs/operators';
 import { UserService } from '../services/user.service';
 import { User } from '../classes/user';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-registration',
@@ -14,12 +15,13 @@ export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup;
   loading = false;
   submitted = false;
-  message: any;
+
   constructor(
     private formbuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private uService: UserService
+    private uService: UserService,
+    private alertService: AlertService
     /*
         TODO:
           Authentication
@@ -31,9 +33,9 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.registrationForm = this.formbuilder.group({
-      username: ['',Validators.required],
-      email: ['',Validators.required],
-      password: ['',Validators.required]
+      username: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8)]]
       // confirm: ['',Validators.required]
     });
   }
@@ -43,8 +45,10 @@ export class RegistrationComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
+    this.alertService.clear();
+
     /*
-      TODO: add messaging, password validity
+      TODO:, password validity
     */
     if (this.registrationForm.invalid){
       return;
@@ -55,14 +59,21 @@ export class RegistrationComponent implements OnInit {
     //   this.registrationForm.get('password').value,
     //   this.registrationForm.get('email').value)
     // );
-    // this.loading = true;
-    let resp = this.uService.newUser(new User(
+    this.loading = true;
+
+    this.uService.newUser(new User(
       this.registrationForm.get('username').value,
       this.registrationForm.get('password').value,
       this.registrationForm.get('email').value
-    ));
-    resp.subscribe((data)=>this.message=data);
-    console.log((this.message));
-
+    ))
+      .subscribe (
+        (data) => {
+          this.alertService.success('New User Registered', true);
+          this.router.navigate(['home']);
+      },
+      error => {
+          this.alertService.success(error);
+          this.loading = false;
+      });
   }
 }

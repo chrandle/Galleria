@@ -15,6 +15,7 @@ import { RoutingModule } from './routing.module';
 import { ImagedetailsComponent } from './imagedetails/imagedetails.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { UserService } from "./services/user.service";
+import { AlertComponent } from './alert/alert.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { UserService } from "./services/user.service";
     NavbarComponent,
     ImagedetailsComponent,
     RegistrationComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,

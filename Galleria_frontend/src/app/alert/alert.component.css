@@ -1,0 +1,16 @@
+* {
+	font-size: 18pt;
+	padding: 12pt;
+	color: white;
+	text-align: center;
+
+}
+
+.alertSuccess {
+	background-color: #85e6ba;
+
+}
+
+.alertError{
+	background-color: indianred;
+}

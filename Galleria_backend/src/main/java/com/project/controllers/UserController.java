@@ -1,8 +1,12 @@
 package com.project.controllers;
 
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+import com.project.beans.LoginForm;
 import com.project.beans.User;
 import com.project.repos.UserRepo;
 
@@ -20,42 +26,90 @@ import com.project.repos.UserRepo;
 @RequestMapping("/user")
 @CrossOrigin
 public class UserController {
+	
 	@Autowired
-	private UserRepo userRepo; 
+	private UserRepo userRepo;
+	
+	private  BCryptPasswordEncoder passwordEncoder;
+	
+//	// For logging
+//	private LocalDate currentDate = LocalDate.now();
+
+	
 	//TODO: Logging
 		@PostMapping("/register")
-		public String registerUser(@RequestBody User user) {
+		public ResponseEntity<String> registerUser (@RequestBody User user) {
+			
+			// Encrypt password via spring security
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			userRepo.save(user);
-			return "New User: "+user.toString();
+			
+			try {
+				return ResponseEntity.ok().body("New User: "+user.toString());
+			} catch (Exception e) {
+				return ResponseEntity.status(500).body("Server error: "+e.getMessage());
+			}
+
 		}
 		
-		//TODO: restrict to admin role?
+		// Used for testing
 		@GetMapping("/all")
-		public List<User> getAllUsers() {
-			return userRepo.findAll();
+		public ResponseEntity<List<User>> getAllUsers() {
+			List<User> retval = userRepo.findAll();
+			
+			
+			try {
+					if (retval.size() != 0) {
+						return ResponseEntity.ok().body(retval);
+					} else {
+						return ResponseEntity.status(404).body(null);
+					}
+				
+			} catch (Exception e) {
+				return ResponseEntity.status(500).body(null);
+			}
+			
 		}
-		
 		
 		@GetMapping("/{id}")
-		public User userById(@PathVariable long id){
-			return userRepo.findById(id).orElse(null);
+		public ResponseEntity<User> userById(@PathVariable long id){
+			User retval = userRepo.findById(id).orElse(null);
+			
+			try {
+					if (retval !=  null) {
+						return ResponseEntity.ok().body(retval);
+					} else {
+						return ResponseEntity.status(404).body(null);
+					}
+
+			} catch (Exception e) {
+				return ResponseEntity.status(500).body(null);
+			}
 		}
 		
 		//TODO: Logging, proper exception<?>
 		@DeleteMapping("/delete/{id}")
-		public String deleteUser(@PathVariable long id) {
-			User checkUser = userRepo.findById(id).orElse(null);
-			if (checkUser != null) {
-				String toStr = checkUser.toString();
-				userRepo.deleteById(id);
-				return "Deleted User: " + toStr;
+		public ResponseEntity<String> deleteUser(@PathVariable long id) {
+			try {
+				User checkUser = userRepo.findById(id).orElse(null);
+					if (checkUser != null) {
+						userRepo.deleteById(id);
+						return ResponseEntity.ok().body("Deleted User: " + checkUser.getUsername());
+					}else {
+						return ResponseEntity.status(404).body(null);
+					}
+			} catch (Exception e) {
+				return ResponseEntity.status(500).body("Server error: "+e.getMessage());
 			}
-			return "User not Found";
 		}
 		
 //		//TODO: Login and authentication
-//		@PostMapping("/login")
-//		public void login(@RequestBody login u ) {
+//		@PostMapping("/authenticate")
+//		public void login(@RequestBody LoginForm login ) {
+//			String username = login.getUsername();
+//			String password = login.getPassword();
+//			
+//			
 //			
 //		}
 }

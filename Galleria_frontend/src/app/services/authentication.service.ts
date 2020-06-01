@@ -20,7 +20,18 @@ export class AuthenticationService {
       return this.currentUserSubject.value;
    }
 
-   login(){
-     
+   login(username: string, password: string) {
+     // TODO: modify to use webpackconfig to store api?
+     return this.http.post<any>('http://localhost:9090/login', { username, password})
+     .pipe(map(user => {
+       localStorage.setItem('currentUser', JSON.stringify(user));
+       this.currentUserSubject.next(user);
+       return user;
+     }));
+   }
+
+   logout() {
+     localStorage.removeItem('currentUser');
+     this.currentUserSubject.next(null);
    }
 }

@@ -17,7 +17,6 @@ import { RegistrationComponent } from './registration/registration.component';
 import { UserService } from "./services/user.service";
 import { AlertComponent } from './alert/alert.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

@@ -20,7 +20,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.beans.User;
+import com.project.beans.AppUser;
 
 import static com.project.security.SecurityConstants.HEADER_STRING;
 import static com.project.security.SecurityConstants.SECRET;

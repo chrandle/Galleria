@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;;
+import javax.persistence.GenerationType;
 
 
 
@@ -13,7 +13,7 @@ import javax.persistence.GenerationType;;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class AppUser {
 
 	@Id
 //	@Column(name = "userid")
@@ -30,11 +30,11 @@ public class User {
 	private String email;
 	
 //	Constructors
-	public User() {
+	public AppUser() {
 		super();
 	}
 	
-	public User(String username, String password, String email) {
+	public AppUser(String username, String password, String email) {
 		super();
 		this.username = username;
 		this.password = password;

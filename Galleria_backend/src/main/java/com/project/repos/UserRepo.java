@@ -3,10 +3,10 @@ package com.project.repos;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.project.beans.User;
+import com.project.beans.AppUser;
 
-public interface UserRepo extends JpaRepository<User,Long> {
+public interface UserRepo extends JpaRepository<AppUser,Long> {
 
-	
+	AppUser findByUsername(String username);	
 
 }

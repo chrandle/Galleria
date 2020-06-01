@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.project.beans.LoginForm;
-import com.project.beans.User;
+import com.project.beans.AppUser;
 import com.project.repos.UserRepo;
+import com.project.security.JWTAuthenticationFilter;
+import com.project.security.JWTAuthorizationFilter;
+import com.project.services.UserDetailServiceImpl;
 
 
 @RestController
@@ -29,33 +32,41 @@ public class UserController {
 	
 	@Autowired
 	private UserRepo userRepo;
-	
-	private  BCryptPasswordEncoder passwordEncoder;
+
+	private BCryptPasswordEncoder passwordEncoder;
 	
 //	// For logging
 //	private LocalDate currentDate = LocalDate.now();
 
 	
+	public UserController(UserRepo userRepo, BCryptPasswordEncoder passwordEncoder) {
+		super();
+		this.userRepo = userRepo;
+		this.passwordEncoder = passwordEncoder;
+	}
+	
 	//TODO: Logging
 		@PostMapping("/register")
-		public ResponseEntity<String> registerUser (@RequestBody User user) {
+		public ResponseEntity<String> registerUser (@RequestBody AppUser appUser) {
 			
 			// Encrypt password via spring security
-			user.setPassword(passwordEncoder.encode(user.getPassword()));
-			userRepo.save(user);
+			appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
+			userRepo.save(appUser);
 			
 			try {
-				return ResponseEntity.ok().body("New User: "+user.toString());
+				return ResponseEntity.ok().body("New User: "+appUser.toString());
 			} catch (Exception e) {
 				return ResponseEntity.status(500).body("Server error: "+e.getMessage());
 			}
 
 		}
 		
+
+
 		// Used for testing
 		@GetMapping("/all")
-		public ResponseEntity<List<User>> getAllUsers() {
-			List<User> retval = userRepo.findAll();
+		public ResponseEntity<List<AppUser>> getAllUsers() {
+			List<AppUser> retval = userRepo.findAll();
 			
 			
 			try {
@@ -72,8 +83,8 @@ public class UserController {
 		}
 		
 		@GetMapping("/{id}")
-		public ResponseEntity<User> userById(@PathVariable long id){
-			User retval = userRepo.findById(id).orElse(null);
+		public ResponseEntity<AppUser> userById(@PathVariable long id){
+			AppUser retval = userRepo.findById(id).orElse(null);
 			
 			try {
 					if (retval !=  null) {
@@ -91,7 +102,7 @@ public class UserController {
 		@DeleteMapping("/delete/{id}")
 		public ResponseEntity<String> deleteUser(@PathVariable long id) {
 			try {
-				User checkUser = userRepo.findById(id).orElse(null);
+				AppUser checkUser = userRepo.findById(id).orElse(null);
 					if (checkUser != null) {
 						userRepo.deleteById(id);
 						return ResponseEntity.ok().body("Deleted User: " + checkUser.getUsername());
@@ -108,7 +119,6 @@ public class UserController {
 //		public void login(@RequestBody LoginForm login ) {
 //			String username = login.getUsername();
 //			String password = login.getPassword();
-//			
 //			
 //			
 //		}

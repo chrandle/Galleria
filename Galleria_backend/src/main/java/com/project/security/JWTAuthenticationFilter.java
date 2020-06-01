@@ -13,7 +13,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.auth0.jwt.JWT;
@@ -24,6 +23,7 @@ import static com.project.security.SecurityConstants.EXPIRATION_TIME;
 import static com.project.security.SecurityConstants.HEADER_STRING;
 import static com.project.security.SecurityConstants.SECRET;
 import static com.project.security.SecurityConstants.TOKEN_PREFIX;
+import com.project.beans.UserBackEndModel;
 
 public class JWTAuthenticationFilter 
 	extends UsernamePasswordAuthenticationFilter {
@@ -35,6 +35,7 @@ public class JWTAuthenticationFilter
 		this.aManager = aManager;
 	}
 	
+	//this is what spring secures on login endpoint
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse rep)
 	 throws AuthenticationException {
@@ -55,12 +56,22 @@ public class JWTAuthenticationFilter
 	
 	@Override 
 	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res,
-			FilterChain chain, Authentication auth) throws AuthenticationException, ServletException {
+			FilterChain chain, Authentication auth) 
+	throws AuthenticationException, ServletException, IOException {
 	
-		String token = JWT.create().withSubject(((User)auth.getPrincipal()).getUsername())
+		String token = JWT.create().withSubject(((UserBackEndModel)auth.getPrincipal()).getUsername())
 			.withExpiresAt(new Date(System.currentTimeMillis()+EXPIRATION_TIME))
 			.sign(HMAC512(SECRET.getBytes()));
 		res.addHeader(HEADER_STRING,TOKEN_PREFIX+token);
+		try {
+				res.getWriter().write(
+						"{ \"username\":\""+(((UserBackEndModel)auth.getPrincipal()).getUsername())+"\",\n"+
+						"\"password\":\""+(((UserBackEndModel)auth.getPrincipal()).getPassword())+"\",\n"+
+						"\"email\":\""+(((UserBackEndModel)auth.getPrincipal()).getEmail())+"\",\n"+
+						"\"token\":\""+token+"\"\n}");
+		} catch (Exception e) {
+			res.getWriter().write(e.getMessage());
+		}
 	}
 
 	

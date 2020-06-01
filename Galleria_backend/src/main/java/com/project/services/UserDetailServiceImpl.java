@@ -1,6 +1,6 @@
 package com.project.services;
 
-import org.springframework.security.core.userdetails.User;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,6 +10,7 @@ import static java.util.Collections.emptyList;
 
 import com.project.beans.AppUser;
 import com.project.repos.UserRepo;
+import com.project.beans.UserBackEndModel;
 
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
@@ -26,7 +27,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 		if (appUser == null) {
 			throw new  UsernameNotFoundException(username);
 		}
-		return new User(appUser.getUsername(), appUser.getPassword(),emptyList());
+		return new UserBackEndModel(appUser.getUsername(), appUser.getPassword(), appUser.getEmail());
 	}
 	
 }

@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
      */
   ) {
       // redirection if already loggedin
-      if (this.authService.currentUserValue) {
+      if (window.localStorage.getItem('currentUser')) {
         this.router.navigate(['/']);
       }
    }

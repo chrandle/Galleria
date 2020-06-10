@@ -73,6 +73,6 @@ public class AppUser {
 //	ToString
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", email=" + email + "]";
+		return "User [username=" + username + ", password=" + password + ", email=" + email +  ", userid=" + userid +"]";
 	}
 }

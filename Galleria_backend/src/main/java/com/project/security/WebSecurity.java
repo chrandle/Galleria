@@ -56,6 +56,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.GET, "/user/all").permitAll();
 		
 		http.cors().and().csrf().disable().authorizeRequests()
+		.antMatchers(HttpMethod.GET, "/user/{\\d+}").permitAll();
+		
+		http.cors().and().csrf().disable().authorizeRequests()
 		.antMatchers(HttpMethod.DELETE, "/user/delete/{\\d+}").permitAll();
 		//TODO: add permitAll for galleries without login?
 		

@@ -114,12 +114,5 @@ public class UserController {
 			}
 		}
 		
-//		//TODO: Login and authentication
-//		@PostMapping("/authenticate")
-//		public void login(@RequestBody LoginForm login ) {
-//			String username = login.getUsername();
-//			String password = login.getPassword();
-//			
-//			
-//		}
+
 }

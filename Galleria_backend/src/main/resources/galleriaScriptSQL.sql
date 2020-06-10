@@ -61,10 +61,10 @@ $$ language sql;
 *			Set Up test data
 -----------------------------------------------------*/ 
 
---
---select create_user('beebee','bbb','bb@google.com');
---select create_user('tubular','waves','radical@google.com');
---select create_user('radical','skate','tubular@google.com');
---
+
+select create_user('beebee','bbbbbbbbb','bb@google.com');
+select create_user('tubular','WavesAtCruz','radical@google.com');
+select create_user('radical','SkateAdHoc','tubular@google.com');
+
 
 

@@ -1,0 +1,91 @@
+
+*{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20pt;
+     color: #C5D0D6;
+}
+
+#profileTop{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-left: 5%;
+  margin-right: 5%;
+  align-items: center;
+}
+
+#profileContainer{
+  display: flex;
+  flex-basis: content;
+  flex-direction: column;
+  background-color: #667C8A;
+  position: relative;
+  margin-left: 5%;
+  border-radius: 12pt;
+  padding: 12pt;
+  max-width: 560px;
+}
+
+#profileBody p{
+  margin : 5% 0% 5% 10%;
+}
+
+.login-form-container  {
+  display: flex;
+  flex-basis: content;
+  flex-direction: column;
+  background-color: #667C8A;
+  position: relative;
+  margin-left: 5%;
+  border-radius: 12pt;
+  padding: 12pt;
+  max-width: 560px;
+}
+
+.form-group{
+  display: flex;
+  justify-items: space-between;
+  flex-direction: row;
+  margin: 5%;
+  color: #C5D0D6;
+}
+
+.form-group p {
+
+  margin: 5%;
+  color: #C5D0D6;
+}
+
+label{
+  display: inline;
+   padding-right: 56pt;
+   width: 56px;
+   text-align: right;
+}
+
+form input{
+  color:#262E33;
+	border-style: none;
+	min-width: 15vw;
+	max-width: 45vw;
+}
+
+h1{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 42pt;
+  font-weight: 700;
+}
+
+
+ button{
+	border-style: none;
+  border-radius: 5%;
+	min-width: 100pt;
+	max-width: 25vw;
+	background-color: #262E33;
+}
+
+ button:hover{
+	background-color:#C5D0D6;
+	color: #262E33;
+}

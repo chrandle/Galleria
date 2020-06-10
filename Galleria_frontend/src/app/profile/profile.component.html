@@ -1,1 +1,68 @@
-<p>profile works!</p>
+<div id="profileContainer">
+
+	<div id="profileTop"> 
+			<h2>User Profile: </h2>
+			<button class ="btn btn-primary" (click)="enterEditing()" >
+				Edit Profile
+			</button>
+	</div>
+
+	<div *ngIf="getEditing()==false" id="profileBody">
+		<p *ngIf="getUser()!=null"> Username: {{getUser().username}}</p>
+		<p *ngIf="getUser()!=null"> Email: {{getUser().email}}</p>
+	</div>
+	
+<div *ngIf="getEditing()==true" class = "login-form-container">
+	<p> Enter in new profile data; Leave fields blank to make no change.</p>
+	<form [formGroup] = "editForm" (ngSubmit)="onSubmit()">
+		<div class="form-group">
+			<label for="username">Username:</label>
+			<input type = "text" formControlName="username" class="form-control"
+				[ngClass] ="{ 'is-invalid': submitted && f.username.errors }"/>
+			<div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+				<div *ngIf="f.username.errors.required">
+					Username required!
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="email">Email:</label>
+			<input type = "password" formControlName="email" class="form-control"
+				[ngClass] ="{ 'is-invalid': submitted && f.email.errors }"/>
+			<div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+				<div *ngIf="f.email.errors.required">
+					Email required!
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="password">Password:</label>
+			<input type = "password" formControlName="password" class="form-control"
+				[ngClass] ="{ 'is-invalid': submitted && f.password.errors }"/>
+			<div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+				<div *ngIf="f.password.errors.required">
+					Password required!
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<button [disabled]="loading" class ="btn btn-primary" >
+				<span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+				Login
+			</button>
+			
+			<button class ="btn btn-primary" (click)="enterEditing()" >
+				Cancel
+			</button>
+		</div>
+	</form>
+
+	
+
+	
+</div>
+
+</div>

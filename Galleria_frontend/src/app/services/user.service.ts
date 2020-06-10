@@ -30,8 +30,11 @@ export class UserService {
   }
 
   // DELETE a single User by ID;
+  // TODO:  require either admin status or JWT of deleted user
   public deleteUser(id: number) {
     return this.http.delete('http://localhost:9090/user/delete/' + id);
   }
+
+
 
 }

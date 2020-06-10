@@ -14,11 +14,11 @@ export class NavbarComponent implements OnInit {
     this.currentUser = this.getCurrentuser();
   }
 
-    public getCurrentuser(){
+    public getCurrentuser() {
         return JSON.parse(window.localStorage.getItem('currentUser'));
     }
 
-    public logout(){
+    public logout() {
       window.localStorage.removeItem('currentUser');
     }
 }

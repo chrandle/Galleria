@@ -30,7 +30,13 @@ export class AuthenticationService {
      }));
    }
 
-   logout() {
+  // returns json parse of currentUser from local storage
+  public getCurrentuser() {
+      return JSON.parse(window.localStorage.getItem('currentUser'));
+  }
+
+  // clear jwt from local storage and route back to login<?> 
+  logout() {
      localStorage.removeItem('currentUser');
      this.currentUserSubject.next(null);
    }

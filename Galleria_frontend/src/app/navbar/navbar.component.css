@@ -1,6 +1,6 @@
 
 *{
-    font-size: 30pt;
+    font-size: 20pt;
      color: #C5D0D6;
 }
 
@@ -17,9 +17,9 @@ ul,li{
   flex-basis: content;
   flex-direction: row;
   align-items: center;
-  height: 10vh;
+  height: 8vh;
   margin : 0%;
-  padding: 0pt 18pt 0pt 18pt;
+  padding: 0pt 9pt 0pt 9pt;
 }
 
 li>a{

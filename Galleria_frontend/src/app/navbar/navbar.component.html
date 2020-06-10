@@ -1,12 +1,11 @@
-<h1 id = "headerText">Galleria</h1>
 
 <div id="navContainer">
-<ul>
-    <li><a routerLink="/home">Home</a></li>
-    <li><a routerLink="/login">Login</a></li>
-    <li *ngIf="getCurrentuser()==null"><a routerLink="/registration">New User</a></li>
-    <li><a  routerLink="/profile" id="loggedInInfo" *ngIf="getCurrentuser()">{{getCurrentuser().username}}</a></li>
-    <li><a *ngIf="getCurrentuser()!=null" (click)="logout()"  routerLink="/login"> Log Out </a></li>
-</ul>
-
+    <ul>
+        <li><a routerLink="/home">Home</a></li>
+        <li *ngIf="getCurrentuser()==null" ><a routerLink="/login">Login</a></li>
+        <li *ngIf="getCurrentuser()==null"><a routerLink="/registration">New User</a></li>
+        <li *ngIf="getCurrentuser()"><a  routerLink="/profile" id="loggedInInfo" >{{getCurrentuser().username}}</a></li>
+        <li *ngIf="getCurrentuser()!=null" ><a (click)="logout()"  routerLink="/login"> Log Out </a></li>
+    </ul>
 </div>
+<h1 id = "headerText">Galleria</h1>

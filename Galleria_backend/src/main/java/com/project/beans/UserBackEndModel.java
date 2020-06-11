@@ -9,17 +9,20 @@ import org.springframework.security.core.userdetails.User;
 public class UserBackEndModel extends User{
 	private String email;
 	private long userid;
+	private String password;
 
 
 	public UserBackEndModel(String username, String password, String email, long userid) {
 		super(username, password, emptyList());
+		this.userid = userid;
+		this.password = password;
 		this.email = email;
 	}
 
 
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 
@@ -27,10 +30,18 @@ public class UserBackEndModel extends User{
 		this.email = email;
 	}
 
-
-
 	public long getUserid() {
-		return userid;
+		return this.userid;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	

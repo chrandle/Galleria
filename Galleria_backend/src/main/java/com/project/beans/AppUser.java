@@ -46,7 +46,7 @@ public class AppUser {
 //	Getters and Setters
 
 	public long getUserid() {
-		return userid;
+		return this.userid;
 	}
 	public void setUserid(long userid) {
 		this.userid = userid;

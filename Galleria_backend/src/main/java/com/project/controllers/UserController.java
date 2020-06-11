@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -46,6 +48,8 @@ public class UserController {
 	}
 	
 	//TODO: Logging
+	
+	// new user registration
 		@PostMapping("/register")
 		public ResponseEntity<String> registerUser (@RequestBody AppUser appUser) {
 			
@@ -55,6 +59,34 @@ public class UserController {
 			
 			try {
 				return ResponseEntity.ok().body("New User: "+appUser.toString());
+			} catch (Exception e) {
+				return ResponseEntity.status(500).body("Server error: "+e.getMessage());
+			}
+
+		}
+		
+		// update user
+		@PostMapping("/update/{id}")
+		public ResponseEntity<String> registerUser (@PathVariable long id,@RequestBody AppUser newUser) {
+			
+			AppUser oldUser = userRepo.getOne(id);
+			if (newUser.getUsername()!="") {
+				oldUser.setUsername(newUser.getUsername());
+			}
+			
+			if (newUser.getPassword()!="") {
+					oldUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+			}
+			
+			if (newUser.getEmail()!="") {
+					oldUser.setEmail(newUser.getEmail());
+			}
+			
+			userRepo.save(oldUser);
+			
+			
+			try {
+				return ResponseEntity.ok().body("Updated User: "+oldUser.toString());
 			} catch (Exception e) {
 				return ResponseEntity.status(500).body("Server error: "+e.getMessage());
 			}

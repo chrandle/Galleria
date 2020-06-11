@@ -19,6 +19,13 @@ export class UserService {
       );
   }
 
+  //POST update to user db
+  public updateUser(user:User,id:number) {
+      return this.http.post( 'http://localhost:9090/user/update/'+id, user, {responseType:'text' as 'json'});
+  }
+
+
+
   // GET all Users
   public getAllUsers() {
     return this.http.get('http://localhost:9090/user/all');

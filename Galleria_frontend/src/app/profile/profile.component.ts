@@ -31,7 +31,11 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.authService.getCurrentuser();
-     this.editForm = this.formbuilder.group({});
+     this.editForm = this.formbuilder.group({
+       username:this.currentUser.username,
+       email:this.currentUser.email,
+       password:""
+     });
   }
 
   getUser(): User {
@@ -48,8 +52,24 @@ export class ProfileComponent implements OnInit {
 
   get f() { return this.editForm.controls; }
 
-  onSubmit(){
-    
+  //needs validation
+  onSubmit() {
+    this.uService.updateUser(new User(
+      this.editForm.get('username').value,
+      this.editForm.get('password').value,
+      this.editForm.get('email').value
+    ), this.currentUser.userid)
+    .subscribe (
+        (data) => {
+          this.alertService.success('User updated', true);
+          this.currentUser.username = this.editForm.get('username').value;
+          this.currentUser.email = this.editForm.get('email').value;
+          this.editing = false;
+      },
+      error => {
+          this.alertService.success(error);
+          this.loading = false;
+      });
   }
 
 }

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../classes/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-
-  constructor(private http:HttpClient) { }
+   private currentUser: User = JSON.parse(localStorage.getItem('currentUser'));
+  
+  constructor(private http:HttpClient,) { }
 
   // POST user to DB
   public newUser(user: User) {
@@ -21,7 +22,8 @@ export class UserService {
 
   //POST update to user db
   public updateUser(user:User,id:number) {
-      return this.http.post( 'http://localhost:9090/user/update/'+id, user, {responseType:'text' as 'json'});
+      const httpHeaders = {'Authorization': this.currentUser.token.valueOf()}
+      return this.http.post( 'http://localhost:9090/user/update/'+id, user,{ headers:httpHeaders, responseType: 'text'as 'json'});
   }
 
 

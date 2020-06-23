@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 
 
@@ -27,6 +28,10 @@ import static com.project.security.SecurityConstants.LOGIN_URL;
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 	private UserDetailsService userDetailService;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	
+	@Autowired
+	private JWTEntryPoint jwtEntry;
 	
 	public WebSecurity(UserDetailServiceImpl userDetailService, BCryptPasswordEncoder pwEncoder) {
 		super();
@@ -52,27 +57,29 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		*/
 		
 		//TODO: final version must check authorization
-		http.cors().and().csrf().disable().authorizeRequests()
-			.antMatchers(HttpMethod.GET, "/user/all").permitAll();
+//		http.cors().and().csrf().disable().authorizeRequests()
+//			.antMatchers(HttpMethod.GET, "/user/all").permitAll();
+//		
+//		http.cors().and().csrf().disable().authorizeRequests()
+//		.antMatchers(HttpMethod.GET, "/user/{\\d+}").permitAll();
+//		
+//		http.cors().and().csrf().disable().authorizeRequests()
+//		.antMatchers(HttpMethod.POST,"/user/update/{\\d+}").permitAll();
+//		
+//		http.cors().and().csrf().disable().authorizeRequests()
+//		.antMatchers(HttpMethod.DELETE, "/user/delete/{\\d+}").permitAll();
 		
-		http.cors().and().csrf().disable().authorizeRequests()
-		.antMatchers(HttpMethod.GET, "/user/{\\d+}").permitAll();
-		
-		http.cors().and().csrf().disable().authorizeRequests()
-		.antMatchers("/user/update/{\\d+}").permitAll();
-		
-		http.cors().and().csrf().disable().authorizeRequests()
-		.antMatchers(HttpMethod.DELETE, "/user/delete/{\\d+}").permitAll();
-		//TODO: add permitAll for galleries without login?
+//		TODO: add permitAll for galleries without login?
 		
 		// permission for all to register + filter requirement for anything not marked as permitAll
 		http.cors().and().csrf().disable().authorizeRequests()
-		.antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
-				.anyRequest().authenticated()
-				.and()
+		.antMatchers( SIGN_UP_URL).permitAll()
+				.anyRequest().authenticated().and()
 				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
 				.addFilter(new JWTAuthorizationFilter( authenticationManager()))
+				.exceptionHandling().authenticationEntryPoint(jwtEntry).and()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		
 
 	}
 	

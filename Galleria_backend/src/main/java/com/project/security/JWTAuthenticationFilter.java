@@ -68,7 +68,7 @@ public class JWTAuthenticationFilter
 						"{ \"username\":\""+(((UserBackEndModel)auth.getPrincipal()).getUsername())+"\",\n"+
 						"\"password\":\""+(((UserBackEndModel)auth.getPrincipal()).getPassword())+"\",\n"+
 						"\"email\":\""+(((UserBackEndModel)auth.getPrincipal()).getEmail())+"\",\n"+
-						"\"token\":\""+token+"\",\n"+
+						"\"token\":\""+TOKEN_PREFIX+token+"\",\n"+
 						"\"userid\":\""+(((UserBackEndModel)auth.getPrincipal()).getUserid())+"\"\n}");
 		} catch (Exception e) {
 			res.getWriter().write(e.getMessage());
